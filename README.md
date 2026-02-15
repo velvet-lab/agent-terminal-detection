@@ -44,6 +44,45 @@ if [[ "$AGENT_DETECTED" == "true" ]]; then
 fi
 ```
 
+## Use Case
+
+Primary goal: make the shell output easy for external agents (notably GitHub Copilot)
+to parse by removing terminal control sequences, right-prompts, and other complex
+prompt features that confuse automated parsers. Many agents cannot reliably interpret
+ANSI escape codes, multi-line prompts, or prompt substitutions — a minimal prompt
+greatly improves accuracy when agents read the terminal.
+
+Typical actions when an agent is detected:
+
+- **Switch to a minimal prompt** (e.g. `PROMPT='$ '`, `RPROMPT=''`) so outputs are plain text.
+- **Avoid complex prompt features** (colors, prompt substitutions, multi-line prompts).
+- **Harden interactive commands** or disable sensitive operations while the agent controls the shell.
+
+How it works:
+
+- The loader sources per-agent modules from `agents/*.sh`. Each module registers a small
+  detection function that returns success (exit code 0) when its agent is present.
+- The loader runs the registered detection functions once per shell session and sets
+  the `AGENT_DETECTED` environment variable to `true` when any detection function succeeds.
+
+Example `.zshrc` snippet to use a minimal prompt and disable a sensitive action while an agent is active:
+
+```bash
+if [[ "$AGENT_DETECTED" == "true" ]]; then
+  PROMPT='$ '
+  RPROMPT=''
+  # Example: make `rm` interactive to avoid accidental deletions while an agent types
+  alias rm='rm -i'
+fi
+```
+
+Privacy & safety:
+
+- Detection is performed locally using environment checks and marker files; the plugin does not
+  send runtime command data to any external service.
+- The optional auto-update helper is disabled by default and will not run unless explicitly
+  enabled in your `~/.zshrc`.
+
 ## Module API (for adding agents)
 
 Agent modules live in `agents/*.sh` (top-level) and are loaded automatically by the plugin.
