@@ -1,5 +1,12 @@
 # agent-terminal-detection
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Stars](https://img.shields.io/github/stars/velvet-lab/agent-terminal-detection?style=social)](https://github.com/velvet-lab/agent-terminal-detection/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/velvet-lab/agent-terminal-detection)](https://github.com/velvet-lab/agent-terminal-detection/issues)
+[![Shell](https://img.shields.io/badge/Shell-Zsh-89e051?logo=zsh&logoColor=white)](https://www.zsh.org/)
+[![GitHub Forks](https://img.shields.io/github/forks/velvet-lab/agent-terminal-detection?style=social)](https://github.com/velvet-lab/agent-terminal-detection/network/members)
+[![GitHub Sponsor](https://img.shields.io/github/sponsors/danlorb?label=Sponsor&logo=githubsponsors)](https://github.com/sponsors/danlorb)
+
 Generic plugin to detect when an "agent" (e.g. Copilot) is driving the terminal.
 
 - Environment variable set by the plugin: `AGENT_DETECTED` ("true" or "false").
@@ -105,3 +112,20 @@ You can also run the update manually from a shell:
 ```bash
 agent_terminal_detection_autoupdate
 ```
+
+## Support & Sponsoring
+
+If you find this plugin useful, please consider supporting its development:
+
+- ⭐ **Star this repository** to show your support
+- 💖 **[Become a sponsor](https://github.com/sponsors/danlorb)** to help maintain and improve the plugin
+- 🐛 **[Report issues](https://github.com/velvet-lab/agent-terminal-detection/issues)** to help make it better
+- 🤝 **Contribute** by submitting pull requests or adding new agent modules
+
+Your support helps keep this project maintained and growing!
+
+## Authors & Contributors
+
+The original setup of this repository was done by [Roland Breitschaft](https://github.com/danlorb).
+
+For questions or discussions, visit the [GitHub Discussions](https://github.com/orgs/velvet-lab/discussions).
