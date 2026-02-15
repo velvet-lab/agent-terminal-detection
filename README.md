@@ -74,3 +74,34 @@ This module checks environment variables, `GIT_PAGER`, non-TTY input, and legacy
 
 ---
 If you want, I can add example modules (`enterprise`, `other`) or move the agent list to a configuration file.
+
+## Auto-update (optional)
+
+The plugin exposes a safe git-based auto-update helper you can call manually or enable
+on shell startup. Configuration (set these in your `~/.zshrc` before loading the plugin):
+
+- `AGENT_TD_AUTO_UPDATE` (default: `false`) — allow update operations.
+- `AGENT_TD_AUTO_UPDATE_ON_START` (default: `false`) — if `true` the plugin will check for
+  updates on shell start (runs in background and respects `AGENT_TD_AUTO_UPDATE_INTERVAL_DAYS`).
+- `AGENT_TD_AUTO_UPDATE_INTERVAL_DAYS` (default: `7`) — minimum days between auto-start checks.
+
+Functions:
+
+- `agent_terminal_detection_autoupdate` — performs a safe `git fetch` + `git pull --ff-only`
+  on the plugin repository. Returns 0 on success or when already up-to-date. It will refuse to
+  update if there are local changes.
+
+Example `~/.zshrc` snippet to enable weekly auto-checks on interactive shells:
+
+```bash
+export AGENT_TD_AUTO_UPDATE=true
+export AGENT_TD_AUTO_UPDATE_ON_START=true
+export AGENT_TD_AUTO_UPDATE_INTERVAL_DAYS=7
+plugins+=(agent-terminal-detection)
+```
+
+You can also run the update manually from a shell:
+
+```bash
+agent_terminal_detection_autoupdate
+```
