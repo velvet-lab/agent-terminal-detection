@@ -11,6 +11,8 @@ AGENT_DETECT_FUNCS+=(_detect_copilot)
 
 _detect_copilot() {
     # Method 1 (PRIMARY): Check for GIT_PAGER=cat
+    # VSCode Copilot sets this to prevent pagers in automated commands
+    # This is the most reliable marker that distinguishes Copilot from user terminals
     if [[ "${GIT_PAGER:-}" == "cat" ]]; then
         return 0
     fi
@@ -19,11 +21,6 @@ _detect_copilot() {
     if [[ -n "${COPILOT_THREAD_ID}" ]] || \
        [[ -n "${GH_COPILOT}" ]] || \
        [[ -n "${GITHUB_COPILOT_CLI}" ]]; then
-        return 0
-    fi
-
-    # Method 3: Non-TTY input fallback
-    if [[ ! -t 0 ]]; then
         return 0
     fi
 
